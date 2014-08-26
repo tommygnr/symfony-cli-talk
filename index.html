@@ -160,16 +160,70 @@ twig
 					<pre><code data-trim contenteditable>
 						$ app/console doctrine:schema:validate
 					</code></pre>
-					<p>If the shortcut is ambiguous</p>
+					<p>If the shortcut is ambiguous the console helps you out</p>
 					<pre><code data-trim contenteditable>
 						$ app/console d:g:e
-
 
 
   [InvalidArgumentException]
   Command "d:g:e" is ambiguous (doctrine:generate:entities, doctrine:generate:entity).
 					</code></pre>
 
+				</section>
+
+				<section>
+					<h2>Commands are self documenting</h2>
+					<pre><code data-trim contenteditable>
+						$ app/console help twig:lint
+Usage:
+ twig:lint [--format="..."] [filename]
+
+Arguments:
+ filename
+
+Options:
+ --format              The output format (default: "txt")
+ --help (-h)           Display this help message.
+ --quiet (-q)          Do not output any message.
+ --verbose (-v|vv|vvv) Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+ --version (-V)        Display this application version.
+ --ansi                Force ANSI output.
+ --no-ansi             Disable ANSI output.
+ --no-interaction (-n) Do not ask any interactive question.
+ --shell (-s)          Launch the shell.
+ --process-isolation   Launch commands from shell as a separate process.
+ --env (-e)            The Environment name. (default: "dev")
+ --no-debug            Switches off debug mode.
+
+Help:
+ The twig:lint command lints a template and outputs to STDOUT
+ the first encountered syntax error.
+
+ You can validate the syntax of a file:
+
+ php app/console twig:lint filename
+
+ Or of a whole directory:
+
+ php app/console twig:lint dirname
+ php app/console twig:lint dirname --format=json
+
+ You can also pass the template contents from STDIN:
+
+ cat filename | php app/console twig:lint
+
+ Or all template files in a bundle:
+
+ php app/console twig:lint @AcmeDemoBundle
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Commands are self documenting</h2>
+					<pre><code data-trim contenteditable>
+						$ app/console help twig:lint
+					</code></pre>
+					<img height="589" width="736" src="/images/help.png" alt="app/console help twig:lint">
 				</section>
 
 				<section>
@@ -180,83 +234,198 @@ twig
 					</aside>
 				</section>
 
-				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						Reveal.js comes with a few themes built in: <br>
-						<a href="?#/themes">Default</a> -
-						<a href="?theme=sky#/themes">Sky</a> -
-						<a href="?theme=beige#/themes">Beige</a> -
-						<a href="?theme=simple#/themes">Simple</a> -
-						<a href="?theme=serif#/themes">Serif</a> -
-						<a href="?theme=night#/themes">Night</a> <br>
-						<a href="?theme=moon#/themes">Moon</a> -
-						<a href="?theme=solarized#/themes">Solarized</a>
-					</p>
-					<p>
-						<small>
-							* Theme demos are loaded after the presentation which leads to flicker. In production you should load your theme in the <code>&lt;head&gt;</code> using a <code>&lt;link&gt;</code>.
-						</small>
-					</p>
+				<section>
+					<h1>The Commands</h1>
+					<h3>Now that we know how to use the console lets explore the commands</h3>
 				</section>
 
-				<section>
-					<h2>Clever Quotes</h2>
-					<p>
-						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
-					</p>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-					</blockquote>
+				<section id="assetic">
+					<h2>Assetic</h2>
+					<div class="fragment">
+					<p>Dumps all your assets (CSS/JS) and applies all configured filters</p>
+					<pre><code data-trim contenteditable class="bash">
+						$ app/console assetic:dump
+					</code></pre>
+
+					</div>
+					<div class="fragment">
+					<p>Scans your files for changes and reprocesses any modified files.</p>
+					<pre><code data-trim contenteditable>
+						$ app/console assetic:dump --watch
+					</code></pre>
+
+					<div class="fragment">
+					<p>Combine this with the following configuration for a huge speedup in dev</p>
+					<pre><code data-trim contenteditable class="yaml">
+#config.yml
+assetic:
+	use_controller:false
+					</code></pre>
+					</div>
+
 				</section>
 
+				<section id="assets">
+					<h2>assets:install</h2>
+					<div class="fragment">
+						<pre><code data-trim contenteditable class="bash">
+							$ app/console assets:install
+						</code></pre>
+						<p>Copy Resources/public from every bundle to the web directory</p>
+					</div>
+					<div class="fragment">
+						<p>A default Symfony installation has a composer post install/update hook to run this for you</p>
+					</div>
 
-				<section>
-					<section id="fragments">
-						<h2>Fragmented Views</h2>
-						<p>Hit the next arrow...</p>
-						<p class="fragment">... to step through ...</p>
-						<ol>
-							<li class="fragment"><code>any type</code></li>
-							<li class="fragment"><em>of view</em></li>
-							<li class="fragment"><strong>fragments</strong></li>
-						</ol>
+					<div class="fragment">
+						<p>Tip: put this in your composer.json and you'll never have to run this command again</p>
+						<pre><code data-trim contenteditable class="json">
+	"extra": {
+	        "symfony-assets-install": "symlink"
+	    }
+						</code></pre>
+					</div>
 
-						<aside class="notes">
-							This slide has fragments which are also stepped through in the notes window.
-						</aside>
-					</section>
-					<section>
-						<h2>Fragment Styles</h2>
-						<p>There's a few styles of fragments, like:</p>
-						<p class="fragment grow">grow</p>
-						<p class="fragment shrink">shrink</p>
-						<p class="fragment roll-in">roll-in</p>
-						<p class="fragment fade-out">fade-out</p>
-						<p class="fragment highlight-red">highlight-red</p>
-						<p class="fragment highlight-green">highlight-green</p>
-						<p class="fragment highlight-blue">highlight-blue</p>
-						<p class="fragment current-visible">current-visible</p>
-						<p class="fragment highlight-current-blue">highlight-current-blue</p>
-					</section>
 				</section>
 
-				<section>
-					<h2>Spectacular image!</h2>
-					<a class="image" href="http://lab.hakim.se/meny/" target="_blank">
-						<img width="320" height="299" src="http://s3.amazonaws.com/hakim-static/portfolio/images/meny.png" alt="Meny">
-					</a>
+				<section id="cache">
+					<h2>cache:clear</h2>
+					<pre><code data-trim contenteditable class="bash">
+						$ app/console cache:clear
+					</code></pre>
+
+					<p class="fragment">Clears the application cache for a given environment</p>
+					<p class="fragment">This is the first thing I try whenever I encounter weirdness</p>
+					<p class="fragment">Note the importance of specifying an environment. Each env has its own cache</p>
+
 				</section>
 
-				<section>
-					<h2>Stellar Links</h2>
+				<section id="config-dump-reference">
+					<h2>config:dump-reference</h2>
+					<pre><code data-trim contenteditable class="bash">
+						$ app/console config:dump-reference
+					</code></pre>
+
+					<p class="fragment">First run this without any arguments to see all registered bundles</p>
+
+					<pre><code data-trim contenteditable class="bash">
+						$ app/console config:dump-reference twig
+					</code></pre>
+
+					<p class="fragment">Then supply a bundle name or alias to view all configuration options and defaults</p>
+				</section>
+
+				<section id="config-debug">
+					<h2>config:debug</h2>
+					<pre><code data-trim contenteditable class="bash">
+						$ app/console config:debug
+					</code></pre>
+
+					<p class="fragment">Very similar to config:dump-reference except that it shows your actual configuration</p>
+
+					<pre><code data-trim contenteditable class="bash">
+						$ app/console config:debug twig
+					</code></pre>
+
+				</section>
+
+				<section id="container-debug">
+					<h2>container:debug</h2>
+					<pre><code data-trim contenteditable class="bash">
+						$ app/console container:debug
+					</code></pre>
+
+					<p class="fragment">I use this heaps with grep</p>
+
+					<pre><code data-trim contenteditable class="bash">
+						$ app/console container:debug | grep form
+					</code></pre>
+
+					<p class="fragment">Also useful:</p>
+
+					<pre><code data-trim contenteditable class="bash">
+						$ app/console container:debug --tag=form.type
+					</code></pre>
+
+				</section>
+
+				<section id="generate-bundle">
+					<h2>generate:bundle</h2>
+					<pre><code data-trim contenteditable class="bash">
+						$ app/console generate:bundle
+					</code></pre>
+					<p>This is the first thing I do when starting a new project</p>
+				</section>
+
+				<section id="doctrine-generate-entity">
+					<h2>Quickly stubbing out entities on the command line</h2>
+					<pre><code data-trim contenteditable class="bash">
+						$ app/console doctrine:generate:entity
+					</code></pre>
+
+				</section>
+
+				<section id="doctrine-generate-crud">
+					<h2>doctrine:generate:crud</h2>
+					<pre><code data-trim contenteditable class="bash">
+						$ app/console doctrine:generate:crud
+					</code></pre>
+					<p>Creates a form type, controller and templates</p>
+					<p class="fragment">This is a massive timesaver</p>
+
+				</section>
+
+				<section id="doctrine-generate-entities">
+					<h2>Quickly stubbing out entities on the command line</h2>
+					<pre><code data-trim contenteditable class="bash">
+						$ app/console doctrine:generate:entities
+					</code></pre>
+
+				</section>
+
+				<section id="doctrine-other">
+					<h2>Other handy Doctrine commands</h2>
+					<pre><code data-trim contenteditable class="bash">
+doctrine:database:create              Creates the configured databases
+doctrine:database:drop                Drops the configured databases
+doctrine:mapping:convert              Convert mapping information between supported formats.
+doctrine:mapping:import               Imports mapping information from an existing database
+doctrine:mapping:info                 Shows basic information about all mapped entities
+doctrine:query:dql                    Executes arbitrary DQL directly from the command line.
+doctrine:query:sql                    Executes arbitrary SQL directly from the command line.
+doctrine:schema:create                Executes (or dumps) the SQL needed to generate the database schema
+doctrine:schema:drop                  Executes (or dumps) the SQL needed to drop the current database schema
+doctrine:schema:update                Executes (or dumps) the SQL needed to update the database schema to match the current mapping metadata
+doctrine:schema:validate              Validates the doctrine mapping files
+</code></pre>
+
+				</section>
+
+				<section id="security-check">
+					<h2>security:check</h2>
+					<pre><code data-trim contenteditable class="bash">
+						$ app/console security:check
+					</code></pre>
+					<p class="fragment">Sends your composer.lock file to the <a href="https://security.sensiolabs.org/">SensioLabs Security Checker</a> to see if any dependencies have know security issues</p>
+					<img class="fragment" src="images/security.png">
+					<p class="fragment">Work this in to your CI environment!</p>
+
+				</section>
+
+				<section id="server-run">
+					<h2>server:run</h2>
+					<pre><code data-trim contenteditable class="bash">
+						$ app/console server:run
+					</code></pre>
 					<ul>
-						<li><a href="http://slid.es">Try the online editor</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js">Source code on GitHub</a></li>
-						<li><a href="http://twitter.com/hakimel">Follow me on Twitter</a></li>
+						<li class="fragment">Spin up a webserver on <a href="http://localhost:8000">localhost:8000</a></li>
+						<li class="fragment">Single threaded, so serving assets takes a while</li>
+						<li class="fragment">PHP 5.4+</li>
+						<li class="fragment">It should go without saying but don't use this in production!</li>
 					</ul>
+
+					<p class="fragment">Work this in to your CI environment!</p>
+
 				</section>
 
 				<section>
@@ -283,6 +452,8 @@ twig
 				progress: true,
 				history: true,
 				center: true,
+				width: 1200,
+				height: 950,
 
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
 				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
@@ -296,7 +467,11 @@ twig
 					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
 					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() {
+						// hljs.configure({
+						// 	languages: ['bash', 'php', 'yaml']
+						// });
+						hljs.initHighlightingOnLoad(); } },
 					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
 					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
 				]

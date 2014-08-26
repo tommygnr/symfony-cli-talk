@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Turbocharging your productivity with the Symfony CLI</title>
+		<title>Symfony CLI</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Tom Corrigan">
@@ -51,8 +51,19 @@
 				</section>
 
 				<section>
+					<h1>About Me</h1>
+
+					<ul>
+						<li>Developing Symfony apps since 2.0</li>
+						<li>Lead Developer of <a href="https://crscertus.com.au">crscertus.com.au</a></li>
+						<li>Co-Founder of <a href="http://rostercloud.com">rostercloud.com</a></li>
+						<li>Attended Symfony Live 2012 in Paris</li>
+					</ul>
+				</section>
+
+				<section>
 					<h2>The console itself</h2>
-					<pre><code data-trim contenteditable>
+					<pre><code data-trim contenteditable class="bash">
 						$ app/console
 Symfony version 2.5.3 - app/dev/debug
 
@@ -153,15 +164,15 @@ twig
 
 				<section>
 					<h2>Shortcut syntax</h2>
-					<pre><code data-trim contenteditable>
+					<pre><code data-trim contenteditable class="bash">
 						$ app/console d:s:v
 					</code></pre>
 					<p>The above is equivalent to:</p>
-					<pre><code data-trim contenteditable>
+					<pre><code data-trim contenteditable class="bash">
 						$ app/console doctrine:schema:validate
 					</code></pre>
 					<p>If the shortcut is ambiguous the console helps you out</p>
-					<pre><code data-trim contenteditable>
+					<pre><code data-trim contenteditable class="bash">
 						$ app/console d:g:e
 
 
@@ -175,63 +186,8 @@ twig
 					<h2>Commands are self documenting</h2>
 					<pre><code data-trim contenteditable>
 						$ app/console help twig:lint
-Usage:
- twig:lint [--format="..."] [filename]
-
-Arguments:
- filename
-
-Options:
- --format              The output format (default: "txt")
- --help (-h)           Display this help message.
- --quiet (-q)          Do not output any message.
- --verbose (-v|vv|vvv) Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
- --version (-V)        Display this application version.
- --ansi                Force ANSI output.
- --no-ansi             Disable ANSI output.
- --no-interaction (-n) Do not ask any interactive question.
- --shell (-s)          Launch the shell.
- --process-isolation   Launch commands from shell as a separate process.
- --env (-e)            The Environment name. (default: "dev")
- --no-debug            Switches off debug mode.
-
-Help:
- The twig:lint command lints a template and outputs to STDOUT
- the first encountered syntax error.
-
- You can validate the syntax of a file:
-
- php app/console twig:lint filename
-
- Or of a whole directory:
-
- php app/console twig:lint dirname
- php app/console twig:lint dirname --format=json
-
- You can also pass the template contents from STDIN:
-
- cat filename | php app/console twig:lint
-
- Or all template files in a bundle:
-
- php app/console twig:lint @AcmeDemoBundle
-					</code></pre>
-				</section>
-
-				<section>
-					<h2>Commands are self documenting</h2>
-					<pre><code data-trim contenteditable>
-						$ app/console help twig:lint
 					</code></pre>
 					<img height="589" width="736" src="/images/help.png" alt="app/console help twig:lint">
-				</section>
-
-				<section>
-					<h2>Heading</h2>
-					<p>Content</p>
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-					</aside>
 				</section>
 
 				<section>
@@ -259,7 +215,7 @@ Help:
 					<pre><code data-trim contenteditable class="yaml">
 #config.yml
 assetic:
-	use_controller:false
+	use_controller: false
 					</code></pre>
 					</div>
 
@@ -267,22 +223,23 @@ assetic:
 
 				<section id="assets">
 					<h2>assets:install</h2>
-					<div class="fragment">
 						<pre><code data-trim contenteditable class="bash">
 							$ app/console assets:install
 						</code></pre>
-						<p>Copy Resources/public from every bundle to the web directory</p>
-					</div>
-					<div class="fragment">
-						<p>A default Symfony installation has a composer post install/update hook to run this for you</p>
-					</div>
 
+					<ul>
+						<li class="fragment">Copy Resources/public from every bundle to the web directory</ul>
+						<li class="fragment">Symfony has a composer post install/update hook to do this for you</ul>
+					</ul>
+					<br />
+					<br />
+					<br />
 					<div class="fragment">
 						<p>Tip: put this in your composer.json and you'll never have to run this command again</p>
 						<pre><code data-trim contenteditable class="json">
-	"extra": {
-	        "symfony-assets-install": "symlink"
-	    }
+"extra": {
+    "symfony-assets-install": "symlink"
+}
 						</code></pre>
 					</div>
 
@@ -307,8 +264,9 @@ assetic:
 					</code></pre>
 
 					<p class="fragment">First run this without any arguments to see all registered bundles</p>
-
-					<pre><code data-trim contenteditable class="bash">
+					<br />
+					<br />
+					<pre class="fragment"><code data-trim contenteditable class="bash">
 						$ app/console config:dump-reference twig
 					</code></pre>
 
@@ -322,10 +280,14 @@ assetic:
 					</code></pre>
 
 					<p class="fragment">Very similar to config:dump-reference except that it shows your actual configuration</p>
+					<br />
+					<br />
 
-					<pre><code data-trim contenteditable class="bash">
+					<pre class="fragment"><code data-trim contenteditable class="bash">
 						$ app/console config:debug twig
 					</code></pre>
+
+					<p class="fragment">Like the last command you can then view the configuration for a bundle</p>
 
 				</section>
 
@@ -334,16 +296,18 @@ assetic:
 					<pre><code data-trim contenteditable class="bash">
 						$ app/console container:debug
 					</code></pre>
+					<br />
 
 					<p class="fragment">I use this heaps with grep</p>
 
-					<pre><code data-trim contenteditable class="bash">
+					<pre class="fragment"><code data-trim contenteditable class="bash">
 						$ app/console container:debug | grep form
 					</code></pre>
+					<br />
 
 					<p class="fragment">Also useful:</p>
 
-					<pre><code data-trim contenteditable class="bash">
+					<pre class="fragment"><code data-trim contenteditable class="bash">
 						$ app/console container:debug --tag=form.type
 					</code></pre>
 
@@ -358,10 +322,14 @@ assetic:
 				</section>
 
 				<section id="doctrine-generate-entity">
-					<h2>Quickly stubbing out entities on the command line</h2>
+					<h2>doctrine:generate:entity</h2>
 					<pre><code data-trim contenteditable class="bash">
 						$ app/console doctrine:generate:entity
 					</code></pre>
+					<br />
+					<p class="fragment">Fantastic for quickly stubbing out entities on the command line</p>
+					<br />
+					<p class="fragment">Demo!</p>
 
 				</section>
 
@@ -371,15 +339,20 @@ assetic:
 						$ app/console doctrine:generate:crud
 					</code></pre>
 					<p>Creates a form type, controller and templates</p>
-					<p class="fragment">This is a massive timesaver</p>
+					<br />
+					<p class="fragment">Another massive timesaver</p>
 
 				</section>
 
 				<section id="doctrine-generate-entities">
-					<h2>Quickly stubbing out entities on the command line</h2>
+					<h2>doctrine:generate:entities</h2>
 					<pre><code data-trim contenteditable class="bash">
 						$ app/console doctrine:generate:entities
 					</code></pre>
+
+					<p class="fragment">Creates entity class from your mapping</p>
+					<br />
+					<p class="fragment">The secret trick is it safely updates existing entities too!</p>
 
 				</section>
 
@@ -423,8 +396,6 @@ doctrine:schema:validate              Validates the doctrine mapping files
 						<li class="fragment">PHP 5.4+</li>
 						<li class="fragment">It should go without saying but don't use this in production!</li>
 					</ul>
-
-					<p class="fragment">Work this in to your CI environment!</p>
 
 				</section>
 

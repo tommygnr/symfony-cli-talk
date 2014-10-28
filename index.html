@@ -167,18 +167,17 @@ twig
 					<pre><code data-trim contenteditable class="bash">
 						$ app/console d:s:v
 					</code></pre>
+					<div class="fragment">
 					<p>The above is equivalent to:</p>
 					<pre><code data-trim contenteditable class="bash">
 						$ app/console doctrine:schema:validate
 					</code></pre>
-					<p>If the shortcut is ambiguous the console helps you out</p>
-					<pre><code data-trim contenteditable class="bash">
-						$ app/console d:g:e
-
-
-  [InvalidArgumentException]
-  Command "d:g:e" is ambiguous (doctrine:generate:entities, doctrine:generate:entity).
-					</code></pre>
+					</div>
+					<br />
+					<div class="fragment">
+						<p>If the shortcut is ambiguous the console helps you out</p>
+						<img src="images/shortcut.png" width="630" height="390">
+					</div>
 
 				</section>
 
@@ -187,7 +186,15 @@ twig
 					<pre><code data-trim contenteditable>
 						$ app/console help twig:lint
 					</code></pre>
-					<img height="589" width="736" src="/images/help.png" alt="app/console help twig:lint">
+					<img class="fragment" height="589" width="736" src="/images/help.png" alt="app/console help twig:lint">
+				</section>
+
+				<section>
+					<h2>Other general notes</h2>
+					<ul>
+						<li>Always be aware of what environment you need to run your command in</li>
+						<li>Don't use interactive mode without a good reason. It will bite you</li>
+					</ul>
 				</section>
 
 				<section>
@@ -401,10 +408,6 @@ doctrine:schema:validate              Validates the doctrine mapping files
 
 				<section>
 					<h1>Thanks</h1>
-					<blockquote cite="https://twitter.com/potch/statuses/292403281349705729">
-						alias yolo='git commit -am "DEAL WITH IT" && git push -f origin master'
-					</blockquote>
-					<p>All credit due to <a href="https://twitter.com/potch">@potch</a>
 				</section>
 
 			</div>
@@ -419,7 +422,7 @@ doctrine:schema:validate              Validates the doctrine mapping files
 			// Full list of configuration options available here:
 			// https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
-				controls: true,
+				controls: false,
 				progress: true,
 				history: true,
 				center: true,
